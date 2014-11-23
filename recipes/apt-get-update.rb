@@ -16,3 +16,4 @@ end
 package "curl"
 package "git"
 package "vim"
+package "nfs-kernel-server"
