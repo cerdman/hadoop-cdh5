@@ -1,16 +1,24 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+current_dir = File.dirname(__FILE__)
+
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = '2'
 
 Vagrant.require_version '>= 1.5.0'
 
-require './libraries/myvagrantlib.rb'
+require 'yaml'
+require "#{current_dir}/libraries/myvagrantlib.rb"
 
 mylib = MyVagrantLib.new
 
 mylib.check_plugins
+
+provider = mylib.get_provider()
+
+# Import Virtualbox configs from YAML file.
+vb_conf = YAML.load_file "#{current_dir}/config/provisioners/#{provider}/config.yml"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # All Vagrant configuration is done here. The most common configuration
@@ -32,17 +40,21 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # If this value is a shorthand to a box in Vagrant Cloud then
   # config.vm.box_url doesn't need to be specified.
 
-  provider = mylib.get_provider()
-
   if provider == :virtualbox
     puts "* Using virtualbox *"
     config.vm.box = 'chef/ubuntu-14.04'
     config.vm.synced_folder ".", "/vagrant", type: "nfs"
 
     config.vm.provider :virtualbox do |vb|
-      vb.customize ["modifyvm", :id, "--memory", "2048"]
+
+      vb.customize ["modifyvm", :id, "--cpus", vb_conf['vb_cpu_count']]
+#      vb.customize ["modifyvm", :id, "--cpuexecutioncap", vb_conf['vb_cpu_exec_cap']]
+      vb.customize ["modifyvm", :id, "--memory", vb_conf['vb_memory']]
+      vb.customize ["modifyvm", :id, "--name", vb_conf['vb_name']]
+      vb.customize ["modifyvm", :id, "--vram", vb_conf['vb_vram']]
+      vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
       vb.customize ["modifyvm", :id, "--ioapic", "on"]
-      vb.customize ["modifyvm", :id, "--cpus", "2"]   
+
     end  
   end
 
