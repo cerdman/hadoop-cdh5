@@ -95,7 +95,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # information on available options.
 
   # The path to the Berksfile to use with Vagrant Berkshelf
-  config.berkshelf.berksfile_path = "./Berksfile"
+  config.berkshelf.berksfile_path = "#{current_dir}/Berksfile"
 
   # Enabling the Berkshelf plugin. To enable this globally, add this configuration
   # option to your ~/.vagrant.d/Vagrantfile file
@@ -113,7 +113,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     chef.log_level = :debug
 
-    chef.custom_config_path = "Vagrantfile.chef"
+    chef.custom_config_path = "#{current_dir}/Vagrantfile.chef"
 
     chef.json = {
       mysql: {
@@ -130,8 +130,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       }
     }
 
-    chef.cookbooks_path = "cookbooks"
-    chef.data_bags_path = "data_bags"
+    chef.cookbooks_path = "#{current_dir}/cookbooks"
+    chef.data_bags_path = "#{current_dir}/data_bags"
 
     chef.run_list = [
       'recipe[apt::cacher-ng]',
