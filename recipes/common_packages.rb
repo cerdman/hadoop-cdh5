@@ -7,8 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-execute "apt-get-update" do
-  user "root"
-  command "apt-get -y update"
-  returns 0
-end
+package "curl"
+package "git"
+package "vim"
+package "nfs-kernel-server"

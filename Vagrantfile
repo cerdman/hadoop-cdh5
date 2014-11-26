@@ -134,6 +134,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.data_bags_path = "#{current_dir}/data_bags"
 
     chef.run_list = [
+      'recipe[hadoop-cdh5::apt-get-update]',
       'recipe[apt::cacher-ng]',
       'recipe[hadoop-cdh5::apt-get-update]',
       'recipe[ssh_known_hosts]',

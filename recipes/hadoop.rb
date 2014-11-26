@@ -35,7 +35,7 @@ remote_file "/tmp/#{hadoop_filename}" do
   source hadoop_url
 end
 
-execute "tar-xzf-hadoop" do
+execute "dpkg-install-#{hadoop_filename}" do
   user "root"
   command "dpkg -i /tmp/#{hadoop_filename}"
   action :run
@@ -49,10 +49,66 @@ execute "apt-get-update" do
   returns 0
 end
 
-execute "apt-get-install-hue" do
-  user "root"
-  command "apt-get -y install hue"
-  returns 0
-end
+# package "cloudera-manager-agent"
+# package "cloudera-manager-daemons"
 
+package "avro-tools"
+package "crunch"
+package "flume-ng"
+package "hadoop-hdfs-fuse"
+package "hadoop-hdfs-nfs3"
+package "hadoop-httpfs"
+package "hbase-solr"
+package "hive-hbase"
+package "hive-webhcat"
+package "hue-beeswax"
+package "hue-hbase"
+package "hue-impala"
+package "hue-pig"
+package "hue-plugins"
+package "hue-rdbms"
+package "hue-search"
+package "hue-spark"
+package "hue-sqoop"
+package "hue-zookeeper"
+package "impala"
+package "impala-shell"
+package "kite"
+package "llama"
+package "mahout"
+package "oozie"
+package "pig"
+package "pig-udf-datafu"
+package "search"
+package "sentry"
+package "solr-mapreduce"
+package "spark-python"
+package "sqoop"
+package "sqoop2"
+package "whirr"
+
+package "hue"
+
+package "bigtop-utils"
+package "bigtop-jsvc"
+package "bigtop-tomcat"
+package "hadoop"
+package "hadoop-hdfs"
+package "hadoop-httpfs"
+package "hadoop-mapreduce"
+package "hadoop-yarn"
+package "hadoop-client"
+package "hadoop-0.20-mapreduce"
+package "hue-plugins"
+package "hbase"
+package "hive"
+package "oozie"
+package "oozie-client"
+package "pig"
+package "zookeeper"
+
+package "impala"
+package "impala-shell"
+
+package "solr-server"
 
