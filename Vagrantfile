@@ -3,11 +3,6 @@
 
 current_dir = File.dirname(__FILE__)
 
-# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
-VAGRANTFILE_API_VERSION = '2'
-
-Vagrant.require_version '>= 1.5.0'
-
 require 'yaml'
 require "#{current_dir}/libraries/myvagrantlib.rb"
 
@@ -16,6 +11,11 @@ mylib = MyVagrantLib.new
 mylib.check_plugins
 
 provider = mylib.get_provider()
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = '2'
+
+Vagrant.require_version '>= 1.5.0'
 
 # Import Virtualbox configs from YAML file.
 vb_conf = YAML.load_file "#{current_dir}/config/provisioners/#{provider}/config.yml"
@@ -135,11 +135,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     chef.run_list = [
       'recipe[hadoop-cdh5::apt-get-update]',
+      'recipe[hadoop-cdh5::common-packages]',
       'recipe[apt::cacher-ng]',
       'recipe[hadoop-cdh5::apt-get-update]',
       'recipe[ssh_known_hosts]',
       'recipe[java::default]',
       'recipe[maven::default]',
+      'recipe[hadoop-cdh5::apt-get-update]',
       'recipe[hadoop-cdh5::hadoop]'
     ]
   end

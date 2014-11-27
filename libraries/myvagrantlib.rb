@@ -1,7 +1,9 @@
 class MyVagrantLib
+    @required_plugins = %w( vagrant-omnibus vagrant-berkshelf vagrant-lxc )
+
     def initialize()
-      @required_plugins = %w( vagrant-omnibus vagrant-berkshelf vagrant-lxc )
     end 
+
     def check_plugins
         @required_plugins.each do |plugin|
           if Vagrant.has_plugin? plugin
