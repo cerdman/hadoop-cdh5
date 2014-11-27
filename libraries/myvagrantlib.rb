@@ -21,8 +21,10 @@ class MyVagrantLib
         if !default_config.nil? and !default_config.empty?
           config = YAML.load_file default_config
           provider = config['provisioner']
-          if provider.nil? or provider.empty? or provider == "default"
+          if provider.nil? or provider.empty?
             provider = nil
+          else
+            provider = provider.to_sym
           end
         end
         if provider.nil?
