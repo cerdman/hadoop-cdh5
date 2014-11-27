@@ -31,6 +31,7 @@ class MyVagrantLib
             provider = (ARGV[1].split('=')[1] || ARGV[2]).to_sym
           else
             provider = (ENV['VAGRANT_DEFAULT_PROVIDER'] || :virtualbox).to_sym
+            puts "provider not found defaulting to #{provider}"
           end
         end
         return provider
