@@ -1,2 +1,3 @@
 ---
-provisioner: default
+# this field could be: virtualbox, lxc, aws, vmware, etc...
+# provisioner: virtualbox
